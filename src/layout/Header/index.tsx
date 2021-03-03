@@ -3,7 +3,8 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 import { useSelector } from 'react-redux';
 import { CodeState } from 'codeReducer';
-import { Button, HeaderTools, MainHeader } from './styles';
+import { Button } from 'components/Styled';
+import { HeaderTools, MainHeader } from './styles';
 
 const Header: React.FC = () => {
     const { js, html, css } = useSelector<CodeState, CodeState>((state) => state);
