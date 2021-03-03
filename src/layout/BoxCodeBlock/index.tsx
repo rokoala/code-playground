@@ -3,12 +3,14 @@ import { BoxCode, ResizerBar, ResizerContent } from 'components';
 import { useWindowDimensions } from 'utils';
 import { CodeBlock } from './styles';
 
-const BoxCodeBlock: React.FC = () => {
-    const { width } = useWindowDimensions();
+interface Props {
+    setJSCode: (code: string) => void;
+    setHTMLCode: (code: string) => void;
+    setCSSCode: (code: string) => void;
+}
 
-    const [JSCode, setJSCode] = useState('');
-    const [HTMLCode, setHTMLCode] = useState('');
-    const [CSSCode, setCSSCode] = useState('');
+const BoxCodeBlock: React.FC<Props> = ({ setJSCode, setHTMLCode, setCSSCode }) => {
+    const { width } = useWindowDimensions();
 
     const [dimensionsHTML, setDimensionsHTML] = useState(width / 3);
     const [dimensionsJS, setDimensionsJS] = useState(width / 3);
