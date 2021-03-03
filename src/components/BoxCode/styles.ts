@@ -12,21 +12,22 @@ export const Title = styled.h2`
     vertical-align: middle;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 `;
 
 export const Header = styled.div`
-    background-color: black;
+    background: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 5px;
 `;
 
-
 export const BoxContent = styled.div`
     display: flex;
-    min-width:0;
+    background: #1d1e22;
+    min-width: 0;
     flex-direction: column;
-`
+`;
