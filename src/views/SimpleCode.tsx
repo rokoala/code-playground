@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BoxCode } from 'components';
+import { BoxCodeBlock } from 'layout';
 
 const SimpleCode: React.FC = () => {
     const [JSCode, setJSCode] = useState('');
@@ -8,15 +8,7 @@ const SimpleCode: React.FC = () => {
 
     return (
         <>
-            <div>
-                <BoxCode title="HTML" onCodeChange={(value) => setHTMLCode(value)} />
-                <BoxCode
-                    title="JS"
-                    codeMirrorOptions={{ mode: 'javascript' }}
-                    onCodeChange={(value) => setJSCode(value)}
-                />
-                <BoxCode title="CSS" codeMirrorOptions={{ mode: 'css' }} onCodeChange={(value) => setCSSCode(value)} />
-            </div>
+            <BoxCodeBlock />
             <iframe
                 sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
                 title="preview"
