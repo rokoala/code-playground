@@ -6,7 +6,7 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
 import 'codemirror/theme/moxer.css';
 
-import { Title, Header } from './styles';
+import { BoxContent, Title, Header } from './styles';
 
 interface Props {
     title: string;
@@ -14,8 +14,12 @@ interface Props {
     codeMirrorOptions?: CodeMirror.EditorConfiguration;
 }
 
-const BoxCode: React.FC<Props> = ({ title = '', onCodeChange, codeMirrorOptions = {} }: Props) => (
-    <>
+const BoxCode: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
+    title = '',
+    onCodeChange,
+    codeMirrorOptions = {},
+}: Props) => (
+    <BoxContent>
         <Header>
             <Title>{title}</Title>
         </Header>
@@ -24,6 +28,7 @@ const BoxCode: React.FC<Props> = ({ title = '', onCodeChange, codeMirrorOptions 
             value=""
             onChange={(code) => onCodeChange(code)}
         />
-    </>
+    </BoxContent>
 );
+
 export default BoxCode;
