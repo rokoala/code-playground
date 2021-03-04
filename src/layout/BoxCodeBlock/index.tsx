@@ -23,7 +23,7 @@ const BoxCodeBlock: React.FC<Props> = ({ height = 300, setJSCode, setHTMLCode, s
         <CodeBlock height={height}>
             <ResizerBar />
             <ResizerContent currentX={dimensionsHTML} diffX={diff1}>
-                <BoxCode title="HTML" onCodeChange={(value) => setHTMLCode(value)} />
+                <BoxCode title="HTML" language="html" onCodeChange={(value) => setHTMLCode(value)} />
             </ResizerContent>
             <ResizerBar
                 onResize={({ x }) => {
@@ -36,11 +36,7 @@ const BoxCodeBlock: React.FC<Props> = ({ height = 300, setJSCode, setHTMLCode, s
                 }}
             />
             <ResizerContent currentX={dimensionsJS} diffX={-diff1 + diff2}>
-                <BoxCode
-                    title="JS"
-                    codeMirrorOptions={{ mode: 'javascript' }}
-                    onCodeChange={(value) => setJSCode(value)}
-                />
+                <BoxCode title="JS" onCodeChange={(value) => setJSCode(value)} />
             </ResizerContent>
             <ResizerBar
                 onResize={({ x }) => {
@@ -53,7 +49,7 @@ const BoxCodeBlock: React.FC<Props> = ({ height = 300, setJSCode, setHTMLCode, s
                 }}
             />
             <ResizerContent currentX={dimensionsCSS} diffX={-diff2}>
-                <BoxCode title="CSS" codeMirrorOptions={{ mode: 'css' }} onCodeChange={(value) => setCSSCode(value)} />
+                <BoxCode title="CSS" language="css" onCodeChange={(value) => setCSSCode(value)} />
             </ResizerContent>
         </CodeBlock>
     );
