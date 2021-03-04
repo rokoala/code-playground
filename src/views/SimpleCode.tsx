@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BoxCodeBlock, Header } from 'layout';
 import { useSelector, useDispatch } from 'react-redux';
-import { CodeState } from 'codeReducer';
-import { setCSS, setHTML, setJS } from 'actions';
+import { CodeState } from 'reducers/codeReducer';
+import { setCSS, setHTML, setJS } from 'actions/actions';
 import { ResizerBar } from 'components';
 import { useWindowDimensions } from 'utils';
 import { Content, Preview } from './styles';

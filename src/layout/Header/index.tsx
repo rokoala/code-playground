@@ -2,7 +2,7 @@ import React from 'react';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 import { useSelector } from 'react-redux';
-import { CodeState } from 'codeReducer';
+import { CodeState } from 'reducers/codeReducer';
 import { Button } from 'components/Styled';
 import { HeaderTools, MainHeader } from './styles';
 
