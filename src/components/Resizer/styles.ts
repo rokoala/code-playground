@@ -5,6 +5,7 @@ interface BarProps {
 }
 
 export const Bar = styled.div<BarProps>`
+    z-index: 2;
     cursor: ${(props) => (props.isVertical ? 'row-resize' : 'col-resize')};
     min-width: 18px;
     min-height: 18px;
