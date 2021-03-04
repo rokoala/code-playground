@@ -4,12 +4,13 @@ import { useWindowDimensions } from 'utils';
 import { CodeBlock } from './styles';
 
 interface Props {
+    height?: number;
     setJSCode: (code: string) => void;
     setHTMLCode: (code: string) => void;
     setCSSCode: (code: string) => void;
 }
 
-const BoxCodeBlock: React.FC<Props> = ({ setJSCode, setHTMLCode, setCSSCode }) => {
+const BoxCodeBlock: React.FC<Props> = ({ height = 300, setJSCode, setHTMLCode, setCSSCode }) => {
     const { width } = useWindowDimensions();
 
     const [dimensionsHTML, setDimensionsHTML] = useState(width / 3);
@@ -19,19 +20,19 @@ const BoxCodeBlock: React.FC<Props> = ({ setJSCode, setHTMLCode, setCSSCode }) =
     const [diff2, setDiff2] = useState(0);
 
     return (
-        <CodeBlock>
+        <CodeBlock height={height}>
             <ResizerBar />
             <ResizerContent currentX={dimensionsHTML} diffX={diff1}>
                 <BoxCode title="HTML" onCodeChange={(value) => setHTMLCode(value)} />
             </ResizerContent>
             <ResizerBar
-                onResize={(n) => {
-                    setDiff1(n);
+                onResize={({ x }) => {
+                    setDiff1(x);
                 }}
-                onStop={(n) => {
+                onStop={({ x }) => {
                     setDiff1(0);
-                    setDimensionsHTML(dimensionsHTML + n);
-                    setDimensionsJS(dimensionsJS - n);
+                    setDimensionsHTML(dimensionsHTML + x);
+                    setDimensionsJS(dimensionsJS - x);
                 }}
             />
             <ResizerContent currentX={dimensionsJS} diffX={-diff1 + diff2}>
@@ -42,13 +43,13 @@ const BoxCodeBlock: React.FC<Props> = ({ setJSCode, setHTMLCode, setCSSCode }) =
                 />
             </ResizerContent>
             <ResizerBar
-                onResize={(n) => {
-                    setDiff2(n);
+                onResize={({ x }) => {
+                    setDiff2(x);
                 }}
-                onStop={(n) => {
+                onStop={({ x }) => {
                     setDiff2(0);
-                    setDimensionsJS(dimensionsJS + n);
-                    setDimensionsCSS(dimensionsCSS - n);
+                    setDimensionsJS(dimensionsJS + x);
+                    setDimensionsCSS(dimensionsCSS - x);
                 }}
             />
             <ResizerContent currentX={dimensionsCSS} diffX={-diff2}>

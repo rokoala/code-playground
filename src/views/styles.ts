@@ -7,6 +7,8 @@ export const Content = styled.div`
 `;
 
 export const Preview = styled.iframe`
+    user-select: none;
+    pointer-events: none;
     width: 100%;
     height: 100%;
 `;
