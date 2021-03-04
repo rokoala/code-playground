@@ -3,7 +3,7 @@ import { BoxCodeBlock, Header } from 'layout';
 import { useSelector, useDispatch } from 'react-redux';
 import { CodeState } from 'codeReducer';
 import { setCSS, setHTML, setJS } from 'actions';
-
+import { ResizerBar } from 'components';
 import { Content, Preview } from './styles';
 
 const SimpleCode: React.FC = () => {
@@ -26,6 +26,7 @@ const SimpleCode: React.FC = () => {
                         dispatch(setHTML(code));
                     }}
                 />
+                <ResizerBar isVertical />
                 <Preview
                     sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
                     title="preview"

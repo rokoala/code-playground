@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Bar } from './styles';
 
 interface Props {
+    isVertical?: boolean;
     onResize?: (diff: number) => void;
     onStop?: (n: number) => void;
 }
 
-const Resizer: React.FC<Props> = ({ onResize, onStop }) => {
+const Resizer: React.FC<Props> = ({ isVertical = false, onResize, onStop }) => {
     const [isResizing, setIsResizing] = useState(false);
     const [startX, setStartX] = useState(0);
 
@@ -44,7 +45,7 @@ const Resizer: React.FC<Props> = ({ onResize, onStop }) => {
         };
     }, [isResizing]);
 
-    return <Bar onMouseDown={mouseDownHandler} />;
+    return <Bar isVertical={isVertical} onMouseDown={mouseDownHandler} />;
 };
 
 export default Resizer;
