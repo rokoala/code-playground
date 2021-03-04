@@ -20,9 +20,13 @@ const BoxCode: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
             <Title>{title}</Title>
         </Header>
         <Editor
-            height="100%"
+            height="calc(100% - 35px)"
+            width="100%"
             onChange={(value) => {
                 onCodeChange(value || '');
+            }}
+            options={{
+                automaticLayout: true,
             }}
             theme={theme}
             language={language}
