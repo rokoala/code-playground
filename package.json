@@ -1,7 +1,8 @@
 {
   "name": "code-playground",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://rokoala.github.io/code-playground/",
+  "private": false,
   "dependencies": {
     "@monaco-editor/react": "^4.0.11",
     "@testing-library/jest-dom": "^5.11.4",
