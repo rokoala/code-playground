@@ -6,13 +6,28 @@ interface XY {
     y: number;
 }
 
+interface Limit {
+    xmin?: number;
+    ymin?: number;
+    xmax?: number;
+    ymax?: number;
+}
+
 interface Props {
     isVertical?: boolean;
+    limit?: Limit;
     onResize?: (diff: XY) => void;
     onStop?: (n: XY) => void;
 }
 
-const Resizer: React.FC<Props> = ({ isVertical = false, onResize, onStop }) => {
+const Resizer: React.FC<Props> = ({
+    isVertical = false,
+    limit = { xmin: 0, ymin: 0, xmax: 9999, ymax: 9999 },
+    onResize,
+    onStop,
+}) => {
+    const xyLimit = { xmin: 0, ymin: 0, xmax: 9999, ymax: 9999, ...limit };
+
     const [isResizing, setIsResizing] = useState(false);
     const [startXY, setStartXY] = useState({
         x: 0,
@@ -28,7 +43,9 @@ const Resizer: React.FC<Props> = ({ isVertical = false, onResize, onStop }) => {
             y: y - startXY.y,
         };
 
-        if (onResize) onResize(diff);
+        if (onResize) {
+            if (y >= xyLimit.ymin && y <= xyLimit.ymax) onResize(diff);
+        }
     };
 
     const stopResize = (e: MouseEvent) => {

@@ -30,8 +30,8 @@ const SimpleCode: React.FC = () => {
                     }}
                 />
                 <ResizerBar
+                    limit={{ ymin: 150, ymax: 800 }}
                     onResize={({ y }) => {
-                        console.log(y);
                         setBoxCodeBlockDim({ ...boxCodeBlockDim, height: boxCodeBlockDim.height + y });
                     }}
                     isVertical
