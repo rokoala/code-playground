@@ -4,10 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CodeState } from 'codeReducer';
 import { setCSS, setHTML, setJS } from 'actions';
 import { ResizerBar } from 'components';
+import { useWindowDimensions } from 'utils';
 import { Content, Preview } from './styles';
 
 const SimpleCode: React.FC = () => {
     const { js, html, css } = useSelector<CodeState, CodeState>((state) => state);
+    const { height } = useWindowDimensions();
 
     const dispatch = useDispatch();
 
@@ -30,7 +32,7 @@ const SimpleCode: React.FC = () => {
                     }}
                 />
                 <ResizerBar
-                    limit={{ ymin: 150, ymax: 800 }}
+                    limit={{ ymin: 150, ymax: height - 100 }}
                     onResize={({ y }) => {
                         setBoxCodeBlockDim({ ...boxCodeBlockDim, height: boxCodeBlockDim.height + y });
                     }}
