@@ -3,13 +3,15 @@ import Editor from '@monaco-editor/react';
 import { BoxContent, Title, Header } from './styles';
 
 interface Props {
-    title: string;
+    initialValue?: string;
+    title?: string;
     language?: string;
     theme?: string;
     onCodeChange: (code: string) => void;
 }
 
 const BoxCode: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
+    initialValue = '',
     title = '',
     theme = 'vs-dark',
     language = 'javascript',
@@ -22,6 +24,7 @@ const BoxCode: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
         <Editor
             height="calc(100% - 35px)"
             width="100%"
+            value={initialValue}
             onChange={(value) => {
                 onCodeChange(value || '');
             }}

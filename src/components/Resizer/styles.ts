@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 interface BarProps {
     isVertical: boolean;
+    hide?: boolean;
 }
 
 export const Bar = styled.div<BarProps>`
     z-index: 2;
+    display: ${(props) => (props.hide ? 'none' : 'block')};
     cursor: ${(props) => (props.isVertical ? 'row-resize' : 'col-resize')};
     min-width: 18px;
     min-height: 18px;
