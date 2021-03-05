@@ -14,7 +14,7 @@ const getWindowDimensions = () => {
 };
 
 // useWindowDimensions - React hook to get window dimensions
-export const useWindowDimensions = ():WindowDimensions => {
+export const useWindowDimensions = (): WindowDimensions => {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {
