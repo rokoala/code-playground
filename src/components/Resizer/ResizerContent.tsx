@@ -24,7 +24,7 @@ const ResizerContent: React.FC<Props> = ({ children, currentX, diffX, hide }) =>
             style={{
                 position: hide ? 'absolute' : 'relative',
                 visibility: hide ? 'hidden' : 'visible',
-                width: previousX + widthDiff,
+                width: `calc(${previousX}% + ${widthDiff}px)`,
             }}
         >
             {children}

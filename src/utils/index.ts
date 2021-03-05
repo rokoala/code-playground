@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface WindowDimensions {
     width: number;
@@ -27,4 +27,12 @@ export const useWindowDimensions = (): WindowDimensions => {
     }, []);
 
     return windowDimensions;
+};
+
+export const usePrevious = (value: any) => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
 };

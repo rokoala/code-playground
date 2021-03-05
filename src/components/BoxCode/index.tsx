@@ -30,6 +30,9 @@ const BoxCode: React.FC<Props & React.HTMLAttributes<HTMLDivElement>> = ({
             }}
             options={{
                 automaticLayout: true,
+                minimap: {
+                    enabled: false,
+                },
             }}
             theme={theme}
             language={language}

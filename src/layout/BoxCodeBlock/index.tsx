@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BoxCode, MobileEditorNav, ResizerBar, ResizerContent } from 'components';
-import { useWindowDimensions } from 'utils';
+import { usePrevious, useWindowDimensions } from 'utils';
 import { CodeBlock } from './styles';
 
 interface Props {
@@ -12,8 +12,9 @@ interface Props {
 
 const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSCode }) => {
     const win = useWindowDimensions();
+    const previousWidth = usePrevious(win.width) || win.width;
 
-    const initWidth = win.width / 3;
+    const initWidth = ((win.width - 18 * 3) / 3 / win.width) * 100;
     const [dimensionsHTML, setDimensionsHTML] = useState(initWidth);
     const [dimensionsJS, setDimensionsJS] = useState(initWidth);
     const [dimensionsCSS, setDimensionsCSS] = useState(initWidth);
@@ -27,7 +28,14 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
     useEffect(() => {
         if (win.width < 767 || win.height < 440) {
             setMobileMode(true);
-        } else if (mobileMode) setMobileMode(false);
+        } else {
+            const diff = win.width - previousWidth;
+            const rate = diff / win.width;
+            setDimensionsHTML(dimensionsHTML + rate);
+            setDimensionsJS(dimensionsJS + rate);
+            setDimensionsCSS(dimensionsCSS + rate);
+            if (mobileMode) setMobileMode(false);
+        }
     }, [win.width]);
 
     return (
@@ -54,8 +62,9 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
                 }}
                 onStop={({ x }) => {
                     setDiff1(0);
-                    setDimensionsHTML(dimensionsHTML + x);
-                    setDimensionsJS(dimensionsJS - x);
+                    const rate = (x / win.width) * 100;
+                    setDimensionsHTML(dimensionsHTML + rate);
+                    setDimensionsJS(dimensionsJS - rate);
                 }}
             />
             <ResizerContent
@@ -72,8 +81,9 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
                 }}
                 onStop={({ x }) => {
                     setDiff2(0);
-                    setDimensionsJS(dimensionsJS + x);
-                    setDimensionsCSS(dimensionsCSS - x);
+                    const rate = (x / win.width) * 100;
+                    setDimensionsJS(dimensionsJS + rate);
+                    setDimensionsCSS(dimensionsCSS - rate);
                 }}
             />
             <ResizerContent
