@@ -3,8 +3,10 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 import { useSelector } from 'react-redux';
 import { CodeState } from 'reducers/codeReducer';
-import { Button } from 'components/Styled';
+import { DownloadButton } from 'components/Styled';
 import { TitleInput } from 'components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { Logo, HeaderTools, MainHeader } from './styles';
 
 const Header: React.FC = () => {
@@ -25,7 +27,7 @@ const Header: React.FC = () => {
                     }}
                 />
                 <HeaderTools>
-                    <Button
+                    <DownloadButton
                         onClick={() => {
                             const zip = new JSZip();
                             zip.file('index.css', css);
@@ -36,8 +38,9 @@ const Header: React.FC = () => {
                             });
                         }}
                     >
-                        Download
-                    </Button>
+                        <FontAwesomeIcon icon={faDownload} />
+                        <span>Download</span>
+                    </DownloadButton>
                 </HeaderTools>
             </MainHeader>
         </>

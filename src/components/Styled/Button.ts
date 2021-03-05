@@ -18,3 +18,14 @@ export const Button = styled.button`
         outline: none;
     }
 `;
+
+export const DownloadButton = styled(Button)`
+    & > span {
+        margin-left: 5px;
+    }
+    @media (max-width: 767px) {
+        & > span {
+            display: none;
+        }
+    }
+`;
