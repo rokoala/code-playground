@@ -13,12 +13,8 @@ export const HeaderTools = styled.div`
     margin-left: auto;
 `;
 
-interface LogoProps {
-    imgUrl: string;
-}
-
-export const Logo = styled.div<LogoProps>`
-    background-image: ${(props) => `url(${props.imgUrl})`};
+export const Logo = styled.div`
+    background-image: url('/code-playground/logo192.png');
     width: 30px;
     height: 30px;
     background-size: cover;

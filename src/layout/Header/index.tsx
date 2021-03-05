@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     return (
         <>
             <MainHeader>
-                <Logo imgUrl={`${process.env.PUBLIC_URL}/logo192.png`} />
+                <Logo />
                 <TitleInput
                     placeholder={defaultTitle}
                     onTitleChange={(title) => {
