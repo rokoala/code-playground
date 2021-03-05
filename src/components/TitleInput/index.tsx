@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import { EditButton, TitleText, TitleEditInput, TitleWrapper } from './styles';
 
 interface Props {
@@ -28,7 +30,9 @@ const TitleInput: React.FC<Props> = ({ placeholder = '', onTitleChange }) => {
             ) : (
                 <TitleText>{title || placeholder}</TitleText>
             )}
-            <EditButton onClick={() => setEditTitle(true)}>edit</EditButton>
+            <EditButton onClick={() => setEditTitle(true)}>
+                <FontAwesomeIcon icon={faPen} />
+            </EditButton>
         </TitleWrapper>
     );
 };
