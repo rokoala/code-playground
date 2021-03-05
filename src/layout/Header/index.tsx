@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { CodeState } from 'reducers/codeReducer';
 import { Button } from 'components/Styled';
 import { TitleInput } from 'components';
-import { HeaderTools, MainHeader } from './styles';
+import { Logo, HeaderTools, MainHeader } from './styles';
 
 const Header: React.FC = () => {
     const defaultTitle = 'Untitled';
@@ -17,6 +17,7 @@ const Header: React.FC = () => {
     return (
         <>
             <MainHeader>
+                <Logo imgUrl={`${process.env.PUBLIC_URL}/logo192.png`} />
                 <TitleInput
                     placeholder={defaultTitle}
                     onTitleChange={(title) => {
