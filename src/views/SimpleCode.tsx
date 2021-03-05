@@ -13,14 +13,14 @@ const SimpleCode: React.FC = () => {
 
     const dispatch = useDispatch();
 
-    const [boxCodeBlockDim, setBoxCodeBlockDim] = useState({ width: 0, height: 350 });
+    const [boxCodeHeight, setBoxCodeHeight] = useState(350);
 
     return (
         <>
             <Header />
             <Content>
                 <BoxCodeBlock
-                    height={boxCodeBlockDim.height}
+                    height={boxCodeHeight}
                     setCSSCode={(code) => {
                         dispatch(setCSS(code));
                     }}
@@ -34,7 +34,7 @@ const SimpleCode: React.FC = () => {
                 <ResizerBar
                     limit={{ ymin: 150, ymax: height - 100 }}
                     onResize={({ y }) => {
-                        setBoxCodeBlockDim({ ...boxCodeBlockDim, height: boxCodeBlockDim.height + y });
+                        setBoxCodeHeight(boxCodeHeight + y);
                     }}
                     isVertical
                 />
