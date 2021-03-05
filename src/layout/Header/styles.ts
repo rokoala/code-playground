@@ -19,7 +19,7 @@ interface LogoProps {
 
 export const Logo = styled.div<LogoProps>`
     background-image: ${(props) => `url(${props.imgUrl})`};
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     background-size: cover;
 `;
