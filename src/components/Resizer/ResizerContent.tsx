@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useWindowDimensions } from 'utils';
 
 interface Props {
     currentX: number;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 const ResizerContent: React.FC<Props> = ({ children, currentX, diffX, hide }) => {
+    const win = useWindowDimensions();
+
     const [previousX, setPreviousX] = useState(currentX);
     const [widthDiff, setWidthDiff] = useState(0);
 
@@ -24,7 +27,7 @@ const ResizerContent: React.FC<Props> = ({ children, currentX, diffX, hide }) =>
             style={{
                 position: hide ? 'absolute' : 'relative',
                 visibility: hide ? 'hidden' : 'visible',
-                width: `calc(${previousX}% + ${widthDiff}px)`,
+                width: `${((previousX + widthDiff) / win.width) * 100}%`,
             }}
         >
             {children}

@@ -14,7 +14,8 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
     const win = useWindowDimensions();
     const previousWidth = usePrevious(win.width) || win.width;
 
-    const initWidth = ((win.width - 18 * 3) / 3 / win.width) * 100;
+    const initWidth = (win.width - 18 * 3) / 3;
+
     const [dimensionsHTML, setDimensionsHTML] = useState(initWidth);
     const [dimensionsJS, setDimensionsJS] = useState(initWidth);
     const [dimensionsCSS, setDimensionsCSS] = useState(initWidth);
@@ -29,11 +30,10 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
         if (win.width < 767 || win.height < 440) {
             setMobileMode(true);
         } else {
-            const diff = win.width - previousWidth;
-            const rate = diff / win.width;
-            setDimensionsHTML(dimensionsHTML + rate);
-            setDimensionsJS(dimensionsJS + rate);
-            setDimensionsCSS(dimensionsCSS + rate);
+            const diff = (win.width - previousWidth) / 3;
+            setDimensionsHTML(dimensionsHTML + diff);
+            setDimensionsJS(dimensionsJS + diff);
+            setDimensionsCSS(dimensionsCSS + diff);
             if (mobileMode) setMobileMode(false);
         }
     }, [win.width]);
@@ -62,9 +62,8 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
                 }}
                 onStop={({ x }) => {
                     setDiff1(0);
-                    const rate = (x / win.width) * 100;
-                    setDimensionsHTML(dimensionsHTML + rate);
-                    setDimensionsJS(dimensionsJS - rate);
+                    setDimensionsHTML(dimensionsHTML + x);
+                    setDimensionsJS(dimensionsJS - x);
                 }}
             />
             <ResizerContent
@@ -81,9 +80,8 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
                 }}
                 onStop={({ x }) => {
                     setDiff2(0);
-                    const rate = (x / win.width) * 100;
-                    setDimensionsJS(dimensionsJS + rate);
-                    setDimensionsCSS(dimensionsCSS - rate);
+                    setDimensionsJS(dimensionsJS + x);
+                    setDimensionsCSS(dimensionsCSS - x);
                 }}
             />
             <ResizerContent
