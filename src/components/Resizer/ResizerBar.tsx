@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Bar } from './styles';
 
 interface XY {
@@ -28,6 +28,8 @@ const ResizerBar: React.FC<Props> = ({
     onResize,
     onStop,
 }) => {
+    const elem = useRef<HTMLDivElement>(null);
+
     const xyLimit = { xmin: 0, ymin: 0, xmax: 9999, ymax: 9999, ...limit };
 
     const [isResizing, setIsResizing] = useState(false);
@@ -45,14 +47,21 @@ const ResizerBar: React.FC<Props> = ({
             y: y - startXY.y,
         };
 
-        if (onResize) {
-            if (y >= xyLimit.ymin && y <= xyLimit.ymax) onResize(diff);
+        if (onResize && y > xyLimit.ymin && y < xyLimit.ymax && x > xyLimit.xmin && x < xyLimit.xmax) {
+            onResize(diff);
         }
     };
 
-    const stopResize = (e: MouseEvent) => {
-        const x = e.clientX;
-        const y = e.clientY;
+    const stopResize = () => {
+        let x = 0;
+        let y = 0;
+
+        if (elem.current) {
+            const dim = elem.current?.getBoundingClientRect();
+
+            x = dim.x;
+            y = dim.y;
+        }
 
         const diff = {
             x: x - startXY.x,
@@ -63,9 +72,16 @@ const ResizerBar: React.FC<Props> = ({
         setIsResizing(false);
     };
 
-    const mouseDownHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        const x = e.clientX;
-        const y = e.clientY;
+    const mouseDownHandler = () => {
+        let x = 0;
+        let y = 0;
+
+        if (elem.current) {
+            const dim = elem.current.getBoundingClientRect();
+
+            x = dim.x;
+            y = dim.y;
+        }
 
         setIsResizing(true);
         setStartXY({ x, y });
@@ -127,7 +143,15 @@ const ResizerBar: React.FC<Props> = ({
         };
     }, [isResizing]);
 
-    return <Bar isVertical={isVertical} hide={hide} onTouchStart={touchStartHandler} onMouseDown={mouseDownHandler} />;
+    return (
+        <Bar
+            ref={elem}
+            isVertical={isVertical}
+            hide={hide}
+            onTouchStart={touchStartHandler}
+            onMouseDown={mouseDownHandler}
+        />
+    );
 };
 
 export default ResizerBar;
