@@ -13,7 +13,7 @@ interface Props {
 const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSCode }) => {
     const win = useWindowDimensions();
 
-    const [tabsOn, setTabsOn] = useState({ html: true, js: false, css: false, result: true });
+    const [tabsOn, setTabsOn] = useState({ html: true, js: false, css: false });
     const [mobileMode, setMobileMode] = useState(false);
 
     useEffect(() => {

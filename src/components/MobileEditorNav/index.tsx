@@ -47,14 +47,6 @@ const MobileEditorNav: React.FC<Props> = ({ onTabChange }) => {
             >
                 CSS
             </ButtonNav>
-            <ButtonNav
-                isActive={activeTabs.result}
-                onClick={() => {
-                    handleTabClick({ ...activeTabs, result: !activeTabs.result });
-                }}
-            >
-                Result
-            </ButtonNav>
         </CodeNav>
     );
 };
