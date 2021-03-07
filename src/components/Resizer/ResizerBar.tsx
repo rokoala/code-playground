@@ -87,7 +87,7 @@ const ResizerBar: React.FC<Props> = ({
         setStartXY({ x, y });
     };
 
-    const resizeTouch = (e: any) => {
+    const resizeTouch = (e: TouchEvent) => {
         const x = e.touches[0].clientX;
         const y = e.touches[0].clientY;
 
