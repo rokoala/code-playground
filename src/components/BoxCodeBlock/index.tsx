@@ -23,7 +23,7 @@ const BoxCodeBlock: React.FC<Props> = ({ height, setJSCode, setHTMLCode, setCSSC
     }, [win.width]);
 
     return (
-        <CodeBlock height={height}>
+        <CodeBlock style={{ height }}>
             {mobileMode && (
                 <MobileEditorNav
                     onTabChange={(tabs) => {
