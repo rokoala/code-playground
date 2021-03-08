@@ -20,7 +20,7 @@ Save Project (.zip)
 
 ## Mobile
 
-- Unfortunately Monaco Editor doesn't work in mobile. On the next release will have a fallback to CodeMirror or other lib.
+- Unfortunately Monaco Editor doesn't work on mobile. The next release will have a fallback to CodeMirror or other lib.
 
 ## Available Scripts
 
