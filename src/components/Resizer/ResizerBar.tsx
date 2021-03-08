@@ -17,6 +17,7 @@ interface Props {
     isVertical?: boolean;
     limit?: Limit;
     hide?: boolean;
+    size: string;
     onResize?: (diff: XY) => void;
     onStop?: (n: XY) => void;
 }
@@ -25,6 +26,7 @@ const ResizerBar: React.FC<Props> = ({
     isVertical = false,
     limit = { xmin: 0, ymin: 0, xmax: 9999, ymax: 9999 },
     hide = false,
+    size = '18px',
     onResize,
     onStop,
 }) => {
@@ -47,8 +49,12 @@ const ResizerBar: React.FC<Props> = ({
             y: y - startXY.y,
         };
 
-        if (onResize && y > xyLimit.ymin && y < xyLimit.ymax && x > xyLimit.xmin && x < xyLimit.xmax) {
-            onResize(diff);
+        if (onResize) {
+            if (isVertical && y > xyLimit.ymin && y < xyLimit.ymax) {
+                onResize(diff);
+            } else if (x > xyLimit.xmin && x < xyLimit.xmax) {
+                onResize(diff);
+            }
         }
     };
 
@@ -146,6 +152,7 @@ const ResizerBar: React.FC<Props> = ({
     return (
         <Bar
             ref={elem}
+            size={size}
             isVertical={isVertical}
             hide={hide}
             onTouchStart={touchStartHandler}

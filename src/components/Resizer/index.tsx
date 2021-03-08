@@ -1,72 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import { usePrevious, useWindowDimensions } from 'utils';
-import ResizerBlock from './ResizerBlock';
+/* eslint-disable @typescript-eslint/ban-types */
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import useResizeObserver from 'use-resize-observer';
+import ListResizerBlock, { Boundaries } from './ListResizerBlock';
+import { ResizerWrapper, ResizerWrapperDirection } from './styles';
 
 interface Props {
-    hide: boolean[];
-    mobileMode?: boolean;
+    direction?: ResizerWrapperDirection;
+    reverse?: boolean;
+    barSize: number;
 }
 
-const Resizer: React.FC<Props> = ({ children, hide, mobileMode }) => {
-    const win = useWindowDimensions();
-    const initWidth = (win.width - 18 * 3) / 3;
-    const previousWidth = usePrevious(win.width) || win.width;
-
-    const countElements = React.Children.count(children);
-
-    const [diffControl, setDiffControl] = useState(new Array(countElements).fill(0));
-    const [widthControl, setWidthControl] = useState(new Array(countElements).fill(initWidth));
+const useMergedCallbackRef = (...callbacks: Function[]) => {
+    const callbacksRegistry = useRef<Function[]>(callbacks);
 
     useEffect(() => {
-        const resizeDiff = (win.width - previousWidth) / countElements;
-        setWidthControl([...widthControl.map((width) => width + resizeDiff)]);
-    }, [win.width]);
+        callbacksRegistry.current = callbacks;
+    }, [...callbacks]);
+
+    return useCallback((element) => {
+        callbacksRegistry.current.forEach((callback) => callback(element));
+    }, []);
+};
+
+const Resizer: React.FC<Props> = ({ children, direction = 'horizontal', reverse = false, barSize }) => {
+    const countElements = React.Children.count(children);
+
+    const [boundaries, setBoundaries] = useState<Boundaries>({ xmin: 0, xmax: 9999, ymin: 0, ymax: 9999 });
+    const { ref, width, height } = useResizeObserver<HTMLDivElement>();
+
+    const mergedCallbackRef = useMergedCallbackRef(ref, (element: HTMLDivElement) => {
+        if (element) {
+            const dim = element.getBoundingClientRect();
+            setBoundaries({ xmin: dim.left, xmax: dim.left + dim.width, ymin: dim.top, ymax: dim.top + dim.height });
+        }
+    });
 
     return (
-        <>
-            {React.Children.map(children, (child, index) => (
-                <ResizerBlock
-                    hide={hide[index]}
-                    leftDiff={diffControl[index]}
-                    rightDiff={diffControl[index + 1]}
-                    onResize={({ x }) => {
-                        const newDiff = [...diffControl];
-                        newDiff[index] = x;
-                        setDiffControl(newDiff);
-                    }}
-                    onStop={({ x }) => {
-                        const newDiff = [...diffControl];
-                        newDiff[index] = 0;
-                        setDiffControl(newDiff);
-
-                        const newWidthControl = [...widthControl];
-
-                        if (newWidthControl[index - 1]) newWidthControl[index - 1] += x;
-                        newWidthControl[index] -= x;
-
-                        setWidthControl(newWidthControl);
-                    }}
-                    disableResizeBar={index === 0}
-                    initialWidth={mobileMode ? win.width : widthControl[index]}
-                    xmax={
-                        index === countElements - 1
-                            ? win.width
-                            : widthControl
-                                  .filter((_, idx) => idx <= index + 1)
-                                  .reduce((accumulator, currentValue) => accumulator + currentValue + 18)
-                    }
-                    xmin={
-                        index <= 1
-                            ? 18
-                            : widthControl
-                                  .filter((_, idx) => idx < index - 1)
-                                  .reduce((accumulator, currentValue) => accumulator + currentValue + 18)
-                    }
+        <ResizerWrapper key={direction} ref={mergedCallbackRef} direction={direction} reverse={reverse}>
+            {width && height && (
+                <ListResizerBlock
+                    reverseFactor={reverse ? -1 : 1}
+                    barSize={barSize}
+                    direction={direction}
+                    count={countElements}
+                    height={height}
+                    width={width}
+                    boundaries={boundaries}
                 >
-                    {child}
-                </ResizerBlock>
-            ))}
-        </>
+                    {children}
+                </ListResizerBlock>
+            )}
+        </ResizerWrapper>
     );
 };
 
