@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { LayoutButton } from 'components';
 import { Button } from 'components/Styled';
 
 export const MainHeader = styled.header`
