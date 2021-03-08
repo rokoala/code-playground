@@ -18,6 +18,10 @@ Save Project (.zip)
 
 [Live demo](https://rokoala.github.io/code-playground/)
 
+## Mobile
+
+- Unfortunately Monaco Editor doesn't work in mobile. On the next release will have a fallback to CodeMirror or other lib.
+
 ## Available Scripts
 
 In the project directory, you can run:
