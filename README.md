@@ -14,6 +14,8 @@ Save Project (.zip)
 
 ## Demo
 
+![](./doc/demo.png)
+
 [Live demo](https://rokoala.github.io/code-playground/)
 
 ## Available Scripts
