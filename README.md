@@ -2,6 +2,20 @@
 
 Code Playground is an online code editor similar to codepen.io built with React.
 
+## Features Available
+
+Monaco Editor
+
+Multiple View Layout 
+
+Live Preview
+
+Save Project (.zip)
+
+## Demo
+
+[Live demo](https://rokoala.github.io/code-playground/)
+
 ## Available Scripts
 
 In the project directory, you can run:
