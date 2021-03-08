@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { LayoutButton } from 'components';
 import { Button } from 'components/Styled';
 
 export const MainHeader = styled.header`
@@ -29,6 +30,14 @@ export const DownloadButton = styled(Button)`
     }
     @media (max-width: 767px) {
         & > span {
+            display: none;
+        }
+    }
+`;
+
+export const HideMobile = styled.span`
+    @media (max-width: 767px) {
+        & > * {
             display: none;
         }
     }

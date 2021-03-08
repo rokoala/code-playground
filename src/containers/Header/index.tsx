@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { Button } from 'components/Styled';
 import { setLayout, setLayout2, setLayout3 } from 'actions/actions';
-import { Logo, HeaderTools, MainHeader, DownloadButton } from './styles';
+import { Logo, HeaderTools, MainHeader, HideMobile, DownloadButton } from './styles';
 
 const Header: React.FC = () => {
     const defaultTitle = 'Untitled';
@@ -31,17 +31,19 @@ const Header: React.FC = () => {
                     }}
                 />
                 <HeaderTools>
-                    <LayoutButton>
-                        <Button margin="5px" onClick={() => dispatch(setLayout2())}>
-                            Left Code
-                        </Button>
-                        <Button margin="5px" onClick={() => dispatch(setLayout())}>
-                            Top Code
-                        </Button>
-                        <Button margin="5px" onClick={() => dispatch(setLayout3())}>
-                            Right Code
-                        </Button>
-                    </LayoutButton>
+                    <HideMobile>
+                        <LayoutButton>
+                            <Button margin="5px" onClick={() => dispatch(setLayout2())}>
+                                Left Code
+                            </Button>
+                            <Button margin="5px" onClick={() => dispatch(setLayout())}>
+                                Top Code
+                            </Button>
+                            <Button margin="5px" onClick={() => dispatch(setLayout3())}>
+                                Right Code
+                            </Button>
+                        </LayoutButton>
+                    </HideMobile>
                     <DownloadButton
                         onClick={() => {
                             const zip = new JSZip();
