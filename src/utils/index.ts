@@ -4,13 +4,18 @@ import type { MutableRefObject } from 'react';
 interface WindowDimensions {
     width: number;
     height: number;
+    mobile: boolean;
 }
 
 const getWindowDimensions = () => {
     const { innerWidth: width, innerHeight: height } = window;
+
+    const mobile = width < 767 || height < 440;
+
     return {
         width,
         height,
+        mobile,
     };
 };
 

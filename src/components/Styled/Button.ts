@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
+interface Props {
+    margin?: string;
+}
+
+export const Button = styled.button<Props>`
     background-color: #444857;
     color: white;
     font-weight: 300;
@@ -9,6 +13,7 @@ export const Button = styled.button`
     font-size: 1rem;
     padding: 10px 15px;
     line-height: 20px;
+    margin: ${(props) => props.margin};
 
     &:active {
         transform: translateY(1px);
@@ -16,16 +21,5 @@ export const Button = styled.button`
     }
     &:focus {
         outline: none;
-    }
-`;
-
-export const DownloadButton = styled(Button)`
-    & > span {
-        margin-left: 5px;
-    }
-    @media (max-width: 767px) {
-        & > span {
-            display: none;
-        }
     }
 `;

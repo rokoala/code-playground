@@ -1,5 +1,13 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import { codeReducer } from '../reducers/codeReducer';
+import { codeReducer, CodeState } from '../reducers/codeReducer';
+import { layoutReducer, LayoutState } from '../reducers/layoutReducer';
 
-export const store = createStore(codeReducer);
+export interface ApplicationState {
+    code: CodeState;
+    layout: LayoutState;
+}
+
+export const store = createStore(
+    combineReducers<ApplicationState>({ code: codeReducer, layout: layoutReducer }),
+);
