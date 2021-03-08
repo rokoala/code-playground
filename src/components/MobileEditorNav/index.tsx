@@ -6,19 +6,18 @@ interface TabsControl {
     html: boolean;
     js: boolean;
     css: boolean;
-    result: boolean;
 }
 
 interface Props {
-    onTabChange: (tab: TabsControl) => void;
+    onTabChange: (tab: string, tabs: TabsControl) => void;
 }
 
 const MobileEditorNav: React.FC<Props> = ({ onTabChange }) => {
-    const [activeTabs, setActiveTabs] = useState<TabsControl>({ html: true, js: false, css: false, result: true });
+    const [activeTabs, setActiveTabs] = useState<TabsControl>({ html: true, js: false, css: false });
 
-    const handleTabClick = (tabs: TabsControl) => {
+    const handleTabClick = (tab: string, tabs: TabsControl) => {
         setActiveTabs(tabs);
-        onTabChange(tabs);
+        onTabChange(tab, tabs);
     };
 
     return (
@@ -26,7 +25,7 @@ const MobileEditorNav: React.FC<Props> = ({ onTabChange }) => {
             <ButtonNav
                 isActive={activeTabs.html}
                 onClick={() => {
-                    handleTabClick({ ...activeTabs, ...{ html: true, js: false, css: false } });
+                    handleTabClick('html', { ...activeTabs, ...{ html: true, js: false, css: false } });
                 }}
             >
                 HTML
@@ -34,7 +33,7 @@ const MobileEditorNav: React.FC<Props> = ({ onTabChange }) => {
             <ButtonNav
                 isActive={activeTabs.js}
                 onClick={() => {
-                    handleTabClick({ ...activeTabs, ...{ html: false, js: true, css: false } });
+                    handleTabClick('js', { ...activeTabs, ...{ html: false, js: true, css: false } });
                 }}
             >
                 JS
@@ -42,7 +41,7 @@ const MobileEditorNav: React.FC<Props> = ({ onTabChange }) => {
             <ButtonNav
                 isActive={activeTabs.css}
                 onClick={() => {
-                    handleTabClick({ ...activeTabs, ...{ html: false, js: false, css: true } });
+                    handleTabClick('css', { ...activeTabs, ...{ html: false, js: false, css: true } });
                 }}
             >
                 CSS

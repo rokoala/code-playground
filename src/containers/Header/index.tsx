@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
-import { useSelector } from 'react-redux';
+import { ApplicationState } from 'store/store';
+import { useSelector, useDispatch } from 'react-redux';
 import { CodeState } from 'reducers/codeReducer';
-import { DownloadButton } from 'components/Styled';
-import { TitleInput } from 'components';
+import { TitleInput, LayoutButton } from 'components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
-import { Logo, HeaderTools, MainHeader } from './styles';
+import { Button } from 'components/Styled';
+import { setLayout, setLayout2, setLayout3 } from 'actions/actions';
+import { Logo, HeaderTools, MainHeader, DownloadButton } from './styles';
 
 const Header: React.FC = () => {
     const defaultTitle = 'Untitled';
 
-    const { js, html, css } = useSelector<CodeState, CodeState>((state) => state);
+    const dispatch = useDispatch();
+
+    const { js, html, css } = useSelector<ApplicationState, CodeState>((state) => state.code);
 
     const [fileName, setFileName] = useState('');
 
@@ -27,6 +31,17 @@ const Header: React.FC = () => {
                     }}
                 />
                 <HeaderTools>
+                    <LayoutButton>
+                        <Button margin="5px" onClick={() => dispatch(setLayout2())}>
+                            Left Code
+                        </Button>
+                        <Button margin="5px" onClick={() => dispatch(setLayout())}>
+                            Top Code
+                        </Button>
+                        <Button margin="5px" onClick={() => dispatch(setLayout3())}>
+                            Right Code
+                        </Button>
+                    </LayoutButton>
                     <DownloadButton
                         onClick={() => {
                             const zip = new JSZip();
